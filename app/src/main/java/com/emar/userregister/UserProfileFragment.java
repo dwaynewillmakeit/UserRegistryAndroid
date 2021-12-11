@@ -41,6 +41,7 @@ public class UserProfileFragment extends Fragment {
             binding.textViewName.setText(user.getName());
             binding.textViewEmail.setText(user.getEmail());
             binding.textViewPhoneNumber.setText(user.getPhoneNumber());
+            binding.imageView2.setImageDrawable(getResources().getDrawable(user.getImageId()));
         });
 
     }

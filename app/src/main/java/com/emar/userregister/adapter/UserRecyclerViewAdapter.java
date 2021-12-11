@@ -1,9 +1,11 @@
 package com.emar.userregister.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.emar.userregister.R;
@@ -20,10 +22,12 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 
     private List<User> users;
     private UserListener listener;
+    private Resources resources;
 
-    public UserRecyclerViewAdapter(UserListener listener) {
+    public UserRecyclerViewAdapter(UserListener listener, Resources resources) {
         users = new ArrayList();
         this.listener = listener;
+        this.resources = resources;
     }
 
     @NonNull
@@ -38,9 +42,11 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         int i = position;
+        int imageId  = R.drawable.avatar_1;
         holder.textViewName.setText(users.get(position).getName());
         holder.textViewEmail.setText(users.get(position).getEmail());
         holder.textViewPhone.setText(users.get(position).getPhoneNumber());
+        holder.imageView.setImageDrawable(resources.getDrawable(users.get(position).getImageId()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +75,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         private final TextView textViewName;
         private final TextView textViewEmail;
         private final TextView textViewPhone;
+        private final ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +84,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewEmail = itemView.findViewById(R.id.textViewEmail);
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

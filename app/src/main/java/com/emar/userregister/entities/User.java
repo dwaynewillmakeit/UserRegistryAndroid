@@ -19,6 +19,9 @@ public class User {
     @ColumnInfo(name = "phone_number")
     String phoneNumber;
 
+    @ColumnInfo(name = "image_id")
+    int imageId;
+
     public int getId() {
         return id;
     }
@@ -49,6 +52,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     @Override

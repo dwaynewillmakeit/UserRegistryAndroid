@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emar.userregister">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.emar.userregister" >
 
     <application
         android:allowBackup="false"
@@ -8,12 +9,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UserRegister">
+        android:theme="@style/Theme.UserRegister" >
         <activity
-            android:name="com.emar.userregister.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.UserRegister.NoActionBar">
+            android:theme="@style/Theme.UserRegister.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

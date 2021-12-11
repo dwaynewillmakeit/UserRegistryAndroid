@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -21,9 +22,27 @@ import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class AddUserFragment extends Fragment {
 
     private FragmentAddUserBinding binding;
+    List imageIds;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        imageIds = new ArrayList<Integer>();
+
+        imageIds.add(R.drawable.avatar_1);
+        imageIds.add(R.drawable.avatar_2);
+        imageIds.add(R.drawable.avatar_3);
+        imageIds.add(R.drawable.avatar_4);
+        imageIds.add(R.drawable.avatar_5);
+    }
 
     @Override
     public View onCreateView(
@@ -74,6 +93,7 @@ public class AddUserFragment extends Fragment {
                                 user.setName(editTextName.getText().toString());
                                 user.setEmail(editTextEmail.getText().toString());
                                 user.setPhoneNumber(editTextPhone.getText().toString());
+                                user.setImageId(getRandomImage());
 
                                 Log.i("ADDUSER",user.toString());
 
@@ -109,6 +129,18 @@ public class AddUserFragment extends Fragment {
         }
 
         return false;
+    }
+
+    public int getRandomImage(){
+        int min = 0;
+        int max = 4;
+
+        Random random = new Random();
+
+        int value = random.nextInt(max + min)+min;
+
+        return (int) imageIds.get(value);
+
     }
 
     @Override

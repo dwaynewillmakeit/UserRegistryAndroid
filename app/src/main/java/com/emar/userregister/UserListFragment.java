@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.emar.userregister.adapter.UserRecyclerViewAdapter;
 import com.emar.userregister.databinding.FragmentUserListBinding;
@@ -30,6 +34,20 @@ public class UserListFragment extends Fragment implements UserListener {
     private UserRepository userRepository;
 
     private UserViewModel userViewModel;
+    private Boolean isTablet;
+
+    private RecyclerView recyclerView;
+    private Button btnAddUser;
+
+    View profileDetailFragment;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
 
     @Override
     public View onCreateView(
@@ -37,17 +55,25 @@ public class UserListFragment extends Fragment implements UserListener {
             Bundle savedInstanceState
     ) {
 
+        isTablet = getContext().getResources().getBoolean(R.bool.isTablet);
+
         userRepository = new UserRepository(getActivity().getApplication());
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
 
-        binding = FragmentUserListBinding.inflate(inflater, container, false);
+//        binding = FragmentUserListBinding.inflate(inflater, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_list,container,false);
 
-        adapter = new UserRecyclerViewAdapter(this);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        btnAddUser = (Button) view.findViewById(R.id.btnAddUser);
 
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setAdapter(adapter);
+        adapter = new UserRecyclerViewAdapter(this,getResources());
 
-        return binding.getRoot();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+
+
+        return view;
 
     }
 
@@ -61,13 +87,17 @@ public class UserListFragment extends Fragment implements UserListener {
             }
         });
 
-        binding.btnAddUser.setOnClickListener(new View.OnClickListener() {
+        btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(UserListFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
+
+        profileDetailFragment = view.findViewById(R.id.profile_nav_container);
+
+
     }
 
     @Override
@@ -81,7 +111,14 @@ public class UserListFragment extends Fragment implements UserListener {
     public void onUserSelected(User user) {
         userViewModel.setSelectedUser(user);
 
-        NavHostFragment.findNavController(UserListFragment.this)
-                .navigate(R.id.action_FirstFragment_to_userProfileFragment);
+        if(profileDetailFragment!=null){
+            Navigation.findNavController(profileDetailFragment).navigate(R.id.fragement_user_profile);
+
+        }else{
+            NavHostFragment.findNavController(UserListFragment.this)
+                    .navigate(R.id.action_FirstFragment_to_userProfileFragment);
+        }
+
+
     }
 }

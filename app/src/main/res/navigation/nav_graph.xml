@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.emar.userregister.UserListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="Users"
         tools:layout="@layout/fragment_user_list">
 
         <action
@@ -16,7 +16,7 @@
             app:destination="@id/SecondFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
+            app:destination="@id/fragement_user_profile" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -29,8 +29,8 @@
             app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
-        android:id="@+id/userProfileFragment"
+        android:id="@+id/fragement_user_profile"
         android:name="com.emar.userregister.UserProfileFragment"
-        android:label="fragment_user_profile"
+        android:label="User Profile"
         tools:layout="@layout/fragment_user_profile" />
 </navigation>
